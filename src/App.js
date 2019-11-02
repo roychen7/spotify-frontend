@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './index.js';
 
 function App() {
   return (
@@ -21,15 +22,13 @@ function App() {
     //   </header>
     // </div>
     <div className="App">
+      <login_button/>
       <header className="App-header">
-        <h1> hi </h1>
+      <login_button/>
+        <h1> hi!! </h1>
       </header>
     </div>
   );
 }
-
-const login_button = <button>
-Login
-</button>
 
 export default App;
