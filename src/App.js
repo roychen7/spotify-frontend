@@ -22,9 +22,7 @@ function App() {
     //   </header>
     // </div>
     <div className="App">
-      <login_button/>
       <header className="App-header">
-      <login_button/>
         <h1> hi!! </h1>
       </header>
     </div>
