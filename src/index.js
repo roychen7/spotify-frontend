@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import jquery from 'jquery';
 var $ = require('jquery');
 
+// initialize the opening screen, render player screen if valid access token exists, otherwise render login screen                                
 $.ajax({
     url: 'http://localhost:8080/token',
     type: 'GET',
@@ -18,8 +19,7 @@ $.ajax({
         } else {
             ReactDOM.render(< Login />, document.getElementById("root"));
         }
-        
-    },
+    },          
     error: function(data, textStatus, xhr) {
         alert('failed' + ' ' + data + ' ' + textStatus + ' ' + xhr);
     }
