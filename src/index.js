@@ -13,7 +13,12 @@ $.ajax({
     type: 'GET',
     contentType: 'text/plain; charset=UTF-8',
     success: function(data, textStatus, xhr) {
-        alert(data);
+        if (data.toString().charAt(0) == "2") {
+        ReactDOM.render(<App />, document.getElementById("root"));
+        } else {
+            ReactDOM.render(< Login />, document.getElementById("root"));
+        }
+        
     },
     error: function(data, textStatus, xhr) {
         alert('failed' + ' ' + data + ' ' + textStatus + ' ' + xhr);
