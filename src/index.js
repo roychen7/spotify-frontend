@@ -1,3 +1,4 @@
+import Player from './Player';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -15,7 +16,7 @@ $.ajax({
     contentType: 'text/plain; charset=UTF-8',
     success: function(data, textStatus, xhr) {
         if (data.toString().charAt(0) == "2") {
-        ReactDOM.render(<App />, document.getElementById("root"));
+        ReactDOM.render(<Player />, document.getElementById("root"));
         } else {
             ReactDOM.render(< Login />, document.getElementById("root"));
         }
@@ -24,6 +25,7 @@ $.ajax({
         alert('failed' + ' ' + data + ' ' + textStatus + ' ' + xhr);
     }
 });
+// ReactDOM.render(< Player />, document.getElementById("root"));
 
 
 // If you want your app to work offline and load faster, you can change
