@@ -7,6 +7,7 @@ var $ = require('jquery');
 var player = null;
 var opened = false;
 var alreadyDone = false;
+var i = 0;
 
 class Player extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ class Player extends React.Component {
                 volume: 0.1
             })
 
-            player.on('player_state_changed', ({ paused, track_window: { current_track } }) => {
+            player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {
                 if (!alreadyDone) {
                 if (paused === true) {
                     $.ajax({
@@ -46,9 +47,11 @@ class Player extends React.Component {
                         url: "http://localhost:8080/play_upd"
                     })
                 }
-                console.log("on player state change " + paused);
-                console.log("current track: " + current_track)
+                console.log(position + i);
+                console.log("on player state change " + paused + ' ' + i);
+                console.log("current track: " + current_track.name + ' ' + i)
                 alreadyDone = true;
+                i++;
                 setTimeout(
                     resetBool, 100
                 )
