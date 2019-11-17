@@ -11,7 +11,7 @@ var $ = require('jquery');
 
 // initialize the opening screen, render player screen if valid access token exists, otherwise render login screen                                
 $.ajax({
-    url: 'http://localhost:8080/token',
+    url: 'http://localhost:8080/valid_token',
     type: 'GET',
     contentType: 'text/plain; charset=UTF-8',
     success: function(data, textStatus, xhr) {

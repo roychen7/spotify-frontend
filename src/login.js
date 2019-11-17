@@ -20,7 +20,7 @@ const Login = () => {
 }
 
 function loginButton() {
-  window.location = 'https://accounts.spotify.com/authorize?client_id=ba2aa172bb954f54be32398e8120381c&response_type=code&scope=user-modify-playback-state%20user-read-playback-state&redirect_uri=http://localhost:8080/callback';
+  window.location = 'https://accounts.spotify.com/authorize?client_id=ba2aa172bb954f54be32398e8120381c&response_type=code&scope=user-modify-playback-state%20user-read-playback-state%20streaming%20user-read-email%20user-read-private&redirect_uri=http://localhost:8080/callback';
   $.ajax({
     url: 'http://localhost:8080/login',
     type: 'GET',

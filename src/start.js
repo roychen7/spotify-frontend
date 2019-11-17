@@ -10,6 +10,7 @@ let mainWindow
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 300, height: 200 })
   mainWindow.setAlwaysOnTop(true);
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
