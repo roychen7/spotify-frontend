@@ -37,6 +37,15 @@ class Player extends React.Component {
 
             player.on('player_state_changed', ({ paused, track_window: { current_track } }) => {
                 if (!alreadyDone) {
+                if (paused === true) {
+                    $.ajax({
+                        url: "http://localhost:8080/pause_upd"
+                    })
+                } else {
+                    $.ajax({
+                        url: "http://localhost:8080/play_upd"
+                    })
+                }
                 console.log("on player state change " + paused);
                 console.log("current track: " + current_track)
                 alreadyDone = true;
