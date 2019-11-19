@@ -8,6 +8,7 @@ var player = null;
 var opened = false;
 var alreadyDone = false;
 var i = 0;
+var prev_track_uri = "";
 
 class Player extends React.Component {
     constructor(props) {
@@ -38,23 +39,28 @@ class Player extends React.Component {
 
             player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {
                 if (!alreadyDone) {
-                if (paused === true) {
-                    $.ajax({
-                        url: "http://localhost:8080/pause_upd"
-                    })
-                } else {
-                    $.ajax({
-                        url: "http://localhost:8080/play_upd"
-                    })
-                }
-                console.log(position + i);
-                console.log("on player state change " + paused + ' ' + i);
-                console.log("current track: " + current_track.name + ' ' + i)
-                alreadyDone = true;
-                i++;
-                setTimeout(
-                    resetBool, 100
-                )
+                    if (current_track.uri !== prev_track_uri) {
+                        prev_track_uri = current_track.uri;
+                        
+                    }
+
+                    if (paused === true) {
+                        $.ajax({
+                            url: "http://localhost:8080/pause_upd"
+                        })
+                    } else {
+                        $.ajax({
+                            url: "http://localhost:8080/play_upd"
+                        })
+                    }
+                    console.log(position + i);
+                    console.log("on player state change " + paused + ' ' + i);
+                    console.log("current track: " + current_track.name + ' ' + i)
+                    alreadyDone = true;
+                    i++;
+                    setTimeout(
+                        resetBool, 100
+                    )
                 }
             })
 
@@ -67,7 +73,6 @@ class Player extends React.Component {
             <div className="Player">
                 <PlayButton />
                 <PauseButton />
-                <Ransom />
             </div>
         )
     }
@@ -75,10 +80,6 @@ class Player extends React.Component {
 
 function resetBool() {
     alreadyDone = false;
-}
-
-    
-function play_ransom() {
 }
 
 function play_spotify() {
@@ -107,12 +108,6 @@ function pause_spotify() {
             }
         }
     })
-}
-
-const Ransom = () => {
-    return (
-        <button id="Ransom" onClick={play_ransom}> Play ransom</button>
-    )
 }
 
 const PlayButton = () => {
