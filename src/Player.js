@@ -7,6 +7,7 @@ var $ = require('jquery');
 var player = null;
 var opened = false;
 var alreadyDone = false;
+var already_paused = null;
 var i = 0;
 var prev_track_uri = "";
 
@@ -40,18 +41,23 @@ class Player extends React.Component {
             player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {
                 if (!alreadyDone) {
                     if (current_track.uri !== prev_track_uri) {
-                        prev_track_uri = current_track.uri;
-                        
+                        prev_track_uri = current_track.uri; 
                     }
 
                     if (paused === true) {
+                        if (already_paused === null || already_paused === false) {
                         $.ajax({
                             url: "http://localhost:8080/pause_upd"
                         })
+                        already_paused = true;
+                    }
                     } else {
+                        if (already_paused === null || already_paused === true) {
                         $.ajax({
                             url: "http://localhost:8080/play_upd"
                         })
+                        already_paused = false;
+                    }
                     }
                     console.log(position + i);
                     console.log("on player state change " + paused + ' ' + i);
@@ -85,6 +91,7 @@ function resetBool() {
 function play_spotify() {
     // console.log(alreadyDone);
     alreadyDone = false;
+    already_paused = false;
     $.ajax({
         method: "GET",
         url: "http://localhost:8080/play",
@@ -99,6 +106,7 @@ function play_spotify() {
 function pause_spotify() {
     // console.log(alreadyDone);
     alreadyDone = false;
+    already_paused = true;
     $.ajax({
         method: "GET",
         url: "http://localhost:8080/pause",
