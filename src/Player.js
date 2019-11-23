@@ -70,8 +70,26 @@ class Player extends React.Component {
                 }
             })
 
+            player.on('authentication_error', ({ message }) => {
+                console.error('Failed to authenticate', message);
+              });
+
             player.connect();
+
         }
+        
+        setInterval(() => {
+            if (already_paused === null) {
+                return;
+            }
+            if (already_paused === true) {
+                console.log("pausing refreshing");
+                pause_spotify();
+            } else {
+                console.log("playing refreshing");
+                play_spotify();
+            }
+        }, 10000);
     }
 
     render() {
@@ -81,6 +99,19 @@ class Player extends React.Component {
                 <PauseButton />
             </div>
         )
+    }
+}
+
+function refreshConnection() {
+    if (already_paused === null) {
+        return;
+    }
+    if (already_paused === true) {
+        console.log("pausing refreshing");
+        pause_spotify();
+    } else {
+        console.log("playing refreshing");
+        play_spotify();
     }
 }
 
