@@ -5,12 +5,22 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+    // "start": "nf start -p 3000",
+
 let mainWindow
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 300, height: 200 })
+  mainWindow = new BrowserWindow({
+     width: 150, 
+     height: 100,
+     webPreferences: {
+       nodeIntegration: true
+     }
+    })
+  
+  mainWindow.setBackgroundColor('#282c34');
   mainWindow.setAlwaysOnTop(true);
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||

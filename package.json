@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "craco": "0.0.3",
     "electron": "^7.0.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -12,7 +13,8 @@
     "jquery": "^3.4.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "electron-builder": "^21.2.0"
   },
   "homepage": "./",
   "main": "src/start.js",

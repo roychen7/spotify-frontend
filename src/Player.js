@@ -1,8 +1,6 @@
 // import './Player.css';
 import React, { component } from 'react';
 var $ = require('jquery');
-// const BrowserWindow = window.require('electron');
-// const { ipcRenderer, remote, BrowserWindow } = require('electron');
 
 var player = null;
 var opened = false;
@@ -14,6 +12,64 @@ var prev_track_uri = "";
 class Player extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            playing: null
+        }
+
+        this.pause_spotify = this.pause_spotify.bind(this);
+        this.play_spotify = this.play_spotify.bind(this);
+        this.test = this.test.bind(this);
+    }
+
+    play_spotify() {
+        // console.log(alreadyDone);
+        alreadyDone = false;
+        already_paused = false;
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/play",
+            success: function(data, textStatus, xhr) {
+                if (xhr.status !== 202) {
+                    alert("An error was encountered while playing");
+                }
+            }
+        })
+    }
+
+    pause_spotify() {
+        // console.log(alreadyDone);
+        alreadyDone = false;
+        already_paused = true;
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/pause",
+            success: function(data, textStatus, xhr) {
+                if (xhr.status !== 202) {
+                    alert("An error was encountered while pausing");
+                }
+            }
+        })
+    }
+    
+    test() {
+        var BrowserWindow;
+        if (true) {
+            const electron = window.require('electron');
+            BrowserWindow = electron.remote.BrowserWindow
+        }
+        var playWindow = new BrowserWindow({
+            width: 300, 
+            height: 200,
+            webPreferences: {
+                nodeIntegration: true
+            }
+           })   
+        playWindow.loadURL("http://localhost:3000")
+    
+        playWindow.on('closed', () => {
+           playWindow = null
+         })
     }
 
     componentDidMount() {
@@ -82,10 +138,10 @@ class Player extends React.Component {
                     }
                     if (already_paused === true) {
                         console.log("pausing refreshing");
-                        pause_spotify();
+                        this.pause_spotify();
                     } else {
                         console.log("playing refreshing");
-                        play_spotify();
+                        this.play_spotify();
                     }
                 }, 10000);
             })
@@ -94,72 +150,19 @@ class Player extends React.Component {
         }
     }
 
+
     render() {
         return (
-            <div className="Player">
-                <PlayButton />
-                <PauseButton />
+            <div id='wrapper-class'>
+                <button id="play" onClick={this.play_spotify}> Play </button>
+                <button id="pause" onClick={this.pause_spotify}> Pause </button>
             </div>
         )
     }
 }
 
-function refreshConnection() {
-    if (already_paused === null) {
-        return;
-    }
-    if (already_paused === true) {
-        console.log("pausing refreshing");
-        pause_spotify();
-    } else {
-        console.log("playing refreshing");
-        play_spotify();
-    }
-}
-
 function resetBool() {
     alreadyDone = false;
-}
-
-function play_spotify() {
-    // console.log(alreadyDone);
-    alreadyDone = false;
-    already_paused = false;
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:8080/play",
-        success: function(data, textStatus, xhr) {
-            if (xhr.status !== 202) {
-                alert("An error was encountered while playing");
-            }
-        }
-    })
-}
-
-function pause_spotify() {
-    // console.log(alreadyDone);
-    alreadyDone = false;
-    already_paused = true;
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:8080/pause",
-        success: function(data, textStatus, xhr) {
-            if (xhr.status !== 202) {
-                alert("An error was encountered while pausing");
-            }
-        }
-    })
-}
-
-const PlayButton = () => {
-    return (
-        <button id="play" onClick={play_spotify}> Play </button>
-        )
-}
-const PauseButton = () => {
-    return (
-        <button id="pause" onClick={pause_spotify}> Pause </button>
-    )
 }
 
 export default Player;
