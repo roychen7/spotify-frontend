@@ -20,7 +20,7 @@ function createWindow() {
   
   mainWindow.setBackgroundColor('#282c34');
   mainWindow.setAlwaysOnTop(true);
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||

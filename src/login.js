@@ -40,6 +40,7 @@ onClick(e) {
             console.log("successful! " + data)
             if (data.toString().charAt(0) == "2") {
                 this.setState( {loggedIn: true });
+                loginWindow.close();
             }
         },
     })

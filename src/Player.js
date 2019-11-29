@@ -154,10 +154,10 @@ class Player extends React.Component {
     render() {
         return (
             <div id='wrapper-class'>
-                <button id="play" onClick={this.play_spotify}> Play </button>
-                <button id="pause" onClick={this.pause_spotify}> Pause </button>
-            </div>
-        )
+                <button id="play" id='play-button' onClick={this.play_spotify}> Play </button>
+                <button id="pause" id='pause-button' onClick={this.pause_spotify}> Pause </button>  
+            </div>  
+            )
     }
 }
 
