@@ -53,23 +53,25 @@ class Player extends React.Component {
     }
     
     test() {
-        var BrowserWindow;
-        if (true) {
-            const electron = window.require('electron');
-            BrowserWindow = electron.remote.BrowserWindow
-        }
-        var playWindow = new BrowserWindow({
-            width: 300, 
-            height: 200,
-            webPreferences: {
-                nodeIntegration: true
+        // $.ajax({
+        //     method: 'POST',
+        //     url: 'http://localhost:8080/testgenerator',
+        //     data: "song1 song2 song3 song4 song5",
+        //     success: function(data, textStatus, xhr) {
+        //         alert(data);
+        //     },
+        //     error: function(data, textStatus, xhr) {
+        //         alert('failed!');
+        //     }
+        //    }       
+        // )
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/test',
+            success: function(data, textStatus, xhr) {
+                alert(data[1]);
             }
-           })   
-        playWindow.loadURL("http://localhost:3000")
-    
-        playWindow.on('closed', () => {
-           playWindow = null
-         })
+        })
     }
 
     componentDidMount() {
@@ -156,6 +158,7 @@ class Player extends React.Component {
             <div id='wrapper-class'>
                 <button id="play" id='play-button' onClick={this.play_spotify}> Play </button>
                 <button id="pause" id='pause-button' onClick={this.pause_spotify}> Pause </button>  
+                <button id="test" onClick={this.test}> Test</button>
             </div>  
             )
     }
