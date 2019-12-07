@@ -38,7 +38,7 @@ onClick(e) {
         async: true,
         success: (data, textStatus, xhr) => {
             console.log("successful! " + data)
-            if (data.toString().charAt(0) == "2") {
+            if (data === "OK") {
                 this.setState( {loggedIn: true });
                 loginWindow.close();
             }

@@ -1,75 +1,51 @@
 // import './Player.css';
 import React, { component } from 'react';
+import { callPlaySong, callPauseSong, updatePlayStatusToFalse, updatePlayStatusToTrue } from './utils/ApiCaller';
 var $ = require('jquery');
 
-var player = null;
-var opened = false;
-var alreadyDone = false;
-var already_paused = null;
-var i = 0;
-var prev_track_uri = "";
-
 class Player extends React.Component {
+    player = null;
+    already_done = false;
+    already_paused = null;
+    prev_track_uri = "";
+
+    resetBool = () => {
+        this.already_done = false;
+    }
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            playing: null
-        }
-
-        this.pause_spotify = this.pause_spotify.bind(this);
-        this.play_spotify = this.play_spotify.bind(this);
-        this.test = this.test.bind(this);
+        this.playSong = this.playSong.bind(this);
+        this.pauseSong = this.pauseSong.bind(this);
     }
 
-    play_spotify() {
-        // console.log(alreadyDone);
-        alreadyDone = false;
-        already_paused = false;
-        $.ajax({
-            method: "GET",
-            url: "http://localhost:8080/play",
-            success: function(data, textStatus, xhr) {
-                if (xhr.status !== 202) {
-                    alert("An error was encountered while playing");
-                }
-            }
-        })
+    playSong() {
+        console.log("Player.js::play_spotify()")
+        this.already_done = false;
+        this.already_paused = false;
+        callPlaySong();
     }
 
-    pause_spotify() {
-        // console.log(alreadyDone);
-        alreadyDone = false;
-        already_paused = true;
-        $.ajax({
-            method: "GET",
-            url: "http://localhost:8080/pause",
-            success: function(data, textStatus, xhr) {
-                if (xhr.status !== 202) {
-                    alert("An error was encountered while pausing");
-                }
-            }
-        })
+    pauseSong() {
+        this.already_done = false;
+        this.already_paused = true;
+        callPauseSong();
     }
     
     test() {
-        // $.ajax({
-        //     method: 'POST',
-        //     url: 'http://localhost:8080/testgenerator',
-        //     data: "song1 song2 song3 song4 song5",
-        //     success: function(data, textStatus, xhr) {
-        //         alert(data);
-        //     },
-        //     error: function(data, textStatus, xhr) {
-        //         alert('failed!');
-        //     }
-        //    }       
-        // )
         $.ajax({
-            method: 'GET',
-            url: 'http://localhost:8080/test',
+            method: 'PUT',
+            url: 'http://localhost:8080/testputmapping',
+            crossDomain: true,
+            data: JSON.stringify({
+                "test": "can you get this?"
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            },
             success: function(data, textStatus, xhr) {
-                alert(data[1]);
+                console.log(data);
             }
         })
     }
@@ -82,7 +58,7 @@ class Player extends React.Component {
         document.body.appendChild(script);
 
         window.onSpotifyWebPlaybackSDKReady = () => {
-            player = new window.Spotify.Player({
+            this.player = new window.Spotify.Player({
                 name: 'Spotify Player',
                 getOAuthToken: callback => {
                     $.ajax({
@@ -96,59 +72,53 @@ class Player extends React.Component {
                 volume: 0.1
             })
 
-            player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {            
-                if (!alreadyDone) {
-                    if (current_track.uri !== prev_track_uri) {
-                        prev_track_uri = current_track.uri; 
+            this.player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {            
+                if (!this.already_done) {
+                    if (current_track.uri !== this.prev_track_uri) {
+                        this.prev_track_uri = current_track.uri; 
                     }
 
                     if (paused === true) {
-                        if (already_paused === null || already_paused === false) {
-                        $.ajax({
-                            url: "http://localhost:8080/pause_upd"
-                        })
-                        already_paused = true;
+                        if (this.already_paused === null || this.already_paused === false) {
+                            updatePlayStatusToFalse();
+                        this.already_paused = true;
                     }
                     } else {
-                        if (already_paused === null || already_paused === true) {
-                        $.ajax({
-                            url: "http://localhost:8080/play_upd"
-                        })
-                        already_paused = false;
+                        if (this.already_paused === null || this.already_paused === true) {
+                            updatePlayStatusToTrue();
+                            this.already_paused = false;
+                        }
                     }
-                    }
-                    console.log(position + i);
-                    console.log("on player state change " + paused + ' ' + i);
-                    console.log("current track: " + current_track.name + ' ' + i)
-                    alreadyDone = true;
-                    i++;
+                    console.log(position);
+                    console.log("on player state change " + paused);
+                    console.log("current track: " + current_track.name )
+                    this.already_done = true;
                     setTimeout(
-                        resetBool, 100
+                        this.resetBool, 100
                     )
                 }
             })
 
-            player.on('authentication_error', ({ message }) => {
+            this.player.on('authentication_error', ({ message }) => {
                 console.error('Failed to authenticate', message);
               });
 
-            player.addListener('ready', () => {
-                console.log("set interval!");
-                setInterval(() => {
-                    if (already_paused === null) {
-                        return;
-                    }
-                    if (already_paused === true) {
-                        console.log("pausing refreshing");
-                        this.pause_spotify();
-                    } else {
-                        console.log("playing refreshing");
-                        this.play_spotify();
-                    }
-                }, 10000);
-            })
-
-            player.connect();
+            // player.addListener('ready', () => {
+            //     console.log("set interval!");
+            //     setInterval(() => {
+            //         if (already_paused === null) {
+            //             return;
+            //         }
+            //         if (already_paused === true) {
+            //             console.log("pausing refreshing");
+            //             this.pause_spotify();
+            //         } else {
+            //             console.log("playing refreshing");
+            //             this.play_spotify();
+            //         }
+            //     }, 10000);
+            // })
+            this.player.connect();
         }
     }
 
@@ -156,16 +126,12 @@ class Player extends React.Component {
     render() {
         return (
             <div id='wrapper-class'>
-                <button id="play" id='play-button' onClick={this.play_spotify}> Play </button>
-                <button id="pause" id='pause-button' onClick={this.pause_spotify}> Pause </button>  
+                <button id="play" id='play-button' onClick={this.playSong}> Play </button>
+                <button id="pause" id='pause-button' onClick={this.pauseSong}> Pause </button>  
                 <button id="test" onClick={this.test}> Test</button>
             </div>  
             )
     }
-}
-
-function resetBool() {
-    alreadyDone = false;
 }
 
 export default Player;
