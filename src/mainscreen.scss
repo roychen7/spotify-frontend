@@ -1,0 +1,54 @@
+.top-div {
+    text-align: center;
+    line-height: 35px;
+}
+
+.login-button {
+    vertical-align: middle;
+    border: rgba(0, 0, 0, 0.016); 
+    border-radius: 10px;
+    background-color: rgb(90, 213, 213);
+    width: 60px;
+    height: 22px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.login-button:after {
+    background: rgb(90, 213, 213);
+    display: block;
+    position: absolute;
+    transition: all 0.8s;
+    opacity: 0;
+    content: "";
+}
+
+.login-button:active:after {
+    opacity: 1;
+    transition: 0s;
+}
+  
+  .button:after {
+    content: "";
+    background: #90EE90;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.toggle-button {
+    vertical-align: middle;
+    top: 50px;
+    border: 2px solid rgb(195, 228, 225);
+    border-radius: 50%;
+    background-color: rgb(90, 213, 213);
+    width: 30px;
+    height: 30px;
+}

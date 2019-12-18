@@ -1,5 +1,5 @@
 // import './Player.css';
-import React, { component } from 'react';
+import React from 'react';
 import { callPlaySong, callPauseSong, updatePlayStatusToFalse, updatePlayStatusToTrue } from './utils/ApiCaller';
 var $ = require('jquery');
 
@@ -9,15 +9,14 @@ class Player extends React.Component {
     already_paused = null;
     prev_track_uri = "";
 
-    resetBool = () => {
-        this.already_done = false;
-    }
-
     constructor(props) {
         super(props);
-
         this.playSong = this.playSong.bind(this);
         this.pauseSong = this.pauseSong.bind(this);
+    }
+
+    resetBool = () => {
+        this.already_done = false;
     }
 
     playSong() {
@@ -34,21 +33,18 @@ class Player extends React.Component {
     }
     
     test() {
-        $.ajax({
-            method: 'PUT',
-            url: 'http://localhost:8080/testputmapping',
-            crossDomain: true,
-            data: JSON.stringify({
-                "test": "can you get this?"
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            },
-            success: function(data, textStatus, xhr) {
-                console.log(data);
-            }
-        })
+        // $.ajax({
+        //     method: 'PUT',
+        //     url: 'http://localhost:8080/suggested_playlists',
+        //     success: function(data, textStatus, xhr) {
+        //         const res = JSON.parse(data);
+        //         console.log(res.result);
+        //     }
+        // })
+        const shell = window.require('electron').shell;
+        shell.openExternal('https://www.google.com');
     }
+
 
     componentDidMount() {
         const script = document.createElement('script');
@@ -69,7 +65,7 @@ class Player extends React.Component {
                         }
                     })
                 },
-                volume: 0.1
+                volume: 0.015
             })
 
             this.player.on('player_state_changed', ({ paused, position, track_window: { current_track } }) => {            
@@ -99,9 +95,10 @@ class Player extends React.Component {
                 }
             })
 
-            this.player.on('authentication_error', ({ message }) => {
-                console.error('Failed to authenticate', message);
+            this.player.on('initialization_error', ({ message }) => {
+                console.error('Failed to initialize', message);
               });
+
 
             // player.addListener('ready', () => {
             //     console.log("set interval!");
@@ -125,12 +122,8 @@ class Player extends React.Component {
 
     render() {
         return (
-            <div id='wrapper-class'>
-                <button id="play" id='play-button' onClick={this.playSong}> Play </button>
-                <button id="pause" id='pause-button' onClick={this.pauseSong}> Pause </button>  
-                <button id="test" onClick={this.test}> Test</button>
-            </div>  
-            )
+            null
+        )
     }
 }
 
