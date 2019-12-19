@@ -5,6 +5,10 @@
     /* line-height: 35px; */
 }
 
+.player-wrapper {
+    background: linear-gradient(to right, rgb(44, 104, 130) 10%, 10%, #282c34 90%, 90%, rgb(44, 104, 130))
+}
+
 .center-toggle {
     display: inline-block;
     text-align: center;
