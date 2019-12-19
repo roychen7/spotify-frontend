@@ -1,0 +1,85 @@
+.pmg-top-div {
+    vertical-align: top;
+    height: 400px;
+    width: 180px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.pmg-title {
+    margin-bottom: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #282c34;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+.pmg-title {
+    display: inline-block;
+    float: none;
+    font-size: 25px;
+    margin-top: 8px;
+    color: rgb(57, 140, 213);
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-weight: 150;
+    vertical-align: top;
+}
+
+.generate-button {
+    border: rgba(0, 0, 0, 0.016); 
+    border-radius: 10px;
+    border-width: thick;
+    background-color: rgb(90, 213, 213);
+    width: 60px;
+    height: 22px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    margin-bottom: 10px;
+}
+
+.pmg-top-item-list-div {
+    height: 50px;
+    overflow-y: auto;
+}
+.pmg-list-item-div {
+    font-size: 20px;
+    color: rgb(57, 140, 213);
+    width: 150px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-weight: 100;
+    line-height: 25px;
+    margin-left: 15px;
+    cursor: pointer;
+
+}
+
+.pmg-list-item-div:hover {
+    color: rgb(88, 176, 254);
+}
+
+.generate-button:hover {
+    opacity: 0.6
+}
+
+.pmg-top-item-list-div {
+
+}

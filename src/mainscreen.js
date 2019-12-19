@@ -12,9 +12,9 @@ class MainScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-        loggedIn: false
+        loggedIn: false,
+        isStretched: false
     }
-    this.isStretched = false;
 }
 
 handleLogin = (e) => {
@@ -47,18 +47,18 @@ onClick = (e) => {
     e.preventDefault();
     const electron = window.require('electron');
     let window_ = electron.remote.getCurrentWindow();
-    if (!this.isStretched) {
+    if (!this.state.isStretched) {
         window_.setBounds({
             width: 500,
             height: 400
         })
-        this.isStretched = true;
+        this.setState({ isStretched: true })
     } else {
         window_.setBounds({
             width: 100,
             height: 80,
         })
-        this.isStretched = false;
+        this.setState({ isStretched: false })
     }
 }
 
@@ -103,16 +103,16 @@ componentDidMount() {
 
 render() {
     return (
-        <span className='top-div'> 
+        <> 
             {!this.state.loggedIn && (<Button className="login-button" onClick = {this.handleLogin}> Login </Button>)} 
             {this.state.loggedIn && (<Button className='expand-button' onClick={this.onClick} >  </Button>)}
-            <div className='center-toggle'>
+            {/* <div className='center-toggle'> */}
                 {this.state.loggedIn && (<Button className="toggle-button" onClick = {this.handleToggle}></Button>)}
-            </div>
-            {this.isStretched && (< PlaylistMixGenerator />)}
+                {this.state.loggedIn && this.state.isStretched && (<PlaylistMixGenerator/>)}
+            {/* </div> */}
             {this.state.loggedIn && (<Button className='expand-button-2' onClick={this.onClick} >  </Button>)}
             {this.state.loggedIn && < Player />}
-        </span>
+        </>
         )
     }
 }

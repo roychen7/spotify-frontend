@@ -1,8 +1,8 @@
 * { margin: 0; padding: 0; border: none;}
-
+  
 .top-div {
     /* text-align: center; */
-    line-height: 35px;
+    /* line-height: 35px; */
 }
 
 .center-toggle {
@@ -10,11 +10,12 @@
     text-align: center;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .login-button {
+    cursor: pointer;
     vertical-align: middle;
     border: rgba(0, 0, 0, 0.016); 
     border-radius: 10px;
@@ -33,43 +34,35 @@
 .expand-button {
     width: 15px;
     margin-left: 0px;
-    height: 5px;
     margin-top: 0px;
-    margin-bottom: 0px;
-    height: 500px;
+    height: 54px;
     display: inline-block;
     background-color: rgb(44, 104, 130);
-    border-color: black;
-    border-width: thick;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     text-decoration: none;
+    padding: 0;
 }
 
 .expand-button-2 {
     width: 15px;
-    margin-left: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 33px;
-    height: 500px;
+    height: 54px;
     display: inline-block;
     background-color: rgb(44, 104, 130);
-    border-color: black;
-    border-width: thick;
     text-decoration: none;
     float: right;
     -webkit-transition-duration: 0.4s;
+    padding: 0;
 }
 
 .toggle-button {
-    vertical-align: middle;
+    cursor: pointer;
+    vertical-align: top;
+    margin-top: 12px;
+    margin-left: 20px;
     border: 2px solid rgb(195, 228, 225);
     border-radius: 50%;
     background-color: rgb(90, 213, 213);
-    margin-bottom: 938px;
-    /* margin-left: 30%; */
-    margin-left: 70%;
     width: 30px;
     height: 30px;
     opacity: 1;
