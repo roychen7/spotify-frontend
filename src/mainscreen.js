@@ -4,7 +4,8 @@ import Player from './Player';
 import React, { component } from 'react';
 import { Button} from 'react-bootstrap';
 import ClientProxy from './utils/ClientProxy';
-import PlaylistMixGenerator from './components/PlaylistMixGenerator'
+import PlaylistMixGenerator from './components/PlaylistMixGenerator';
+import RecentSongs from './components/RecentSongs';
 var $ = require('jquery');
 
 class MainScreen extends React.Component {
@@ -111,6 +112,7 @@ render() {
                     {this.state.loggedIn && (<Button className="toggle-button" onClick = {this.handleToggle}></Button>)}
                     {this.state.loggedIn && this.state.isStretched && (<PlaylistMixGenerator/>)}
                 {/* </div> */}
+                    {this.state.loggedIn && this.state.isStretched && (<RecentSongs />)}
                 {this.state.loggedIn && (<Button className='expand-button-2' onClick={this.onClick} >  </Button>)}
             </div>
             {this.state.loggedIn && < Player />}
