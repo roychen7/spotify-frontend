@@ -1,23 +1,30 @@
 import React from 'react';
 import '../componentstyling/PlaylistMixGenerator.css'
 import { Button} from 'react-bootstrap';
-import ListViewer from './ListViewer'
+
+const testList = [[0, 1], [2, 3], [4, 5], [6, 7]]
 
 class PlaylistMixGenerator extends React.PureComponent {
     constructor(props) {
         super(props);
-
         // TODO: propertly initialize currentlySelected
         this.currentlySelected = new Set();
     }
 
-    handleButtonClick = (playlistId) => {
-        console.log("current playlist id is: " + playlistId);
-        console.log(playlistId in this.currentlySelected);
+    componentDidMount() {
+        const { listItems } = this.props;
+        for (let i = 0; i < testList.length; i++) {
+            this.currentlySelected.add(testList[i]);
+        }
+    }
+
+    handleButtonClick = (e, playlistId) => {
         if (this.currentlySelected.has(playlistId)) {
             console.log("removing playlist id: " + playlistId)
             this.currentlySelected.delete(playlistId);
+            e.currentTarget.style.backgroundColor = "#282c34";
         } else {
+            e.currentTarget.style.backgroundColor = "rgb(45, 94, 136";
             this.currentlySelected.add(playlistId);
         }
         console.log(this.currentlySelected);
@@ -30,8 +37,14 @@ class PlaylistMixGenerator extends React.PureComponent {
                 <h1 className='pmg-title'> Playlist Mixer</h1> 
                 <Button className='generate-button'> Generate </Button>
                 <div className='pmg-top-item-list-div'>
-                    <ListViewer type='mixer' listItems={testList} onButtonClick={this.handleButtonClick}/>
-                </div>
+                    {testList.map(elt => (
+                        <Button 
+                            key={elt[1]} 
+                            onClick={e => this.handleButtonClick(e, elt[1])}
+                            className='pmg-list-item-button'> {elt[0]} 
+                        </Button>
+                    ))}               
+                 </div>
             </div>
         );
     }

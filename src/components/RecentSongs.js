@@ -1,5 +1,5 @@
 import React from 'react';
-import ListViewer from './ListViewer'
+import { Button} from 'react-bootstrap';
 import '../componentstyling/RecentSongs.css'
 
 
@@ -13,14 +13,19 @@ class RecentSongs extends React.PureComponent {
     }
 
     render() {
-    const testList = [[0, 1], [2, 3], [4, 5], [6, 7]]
-
+    const testList = [[0, 1], [2, 3], [4, 5], [6, 7]] 
         return (
             <div className='pmg-top-div'>
                 <h1 className='pmg-title'> Recent Songs </h1> 
                 <input id='input-bar' type="text"></input>
                 <div className='pmg-top-item-list-div'>
-                    <ListViewer type='not-mixer' listItems={testList} onButtonClick={this.handleButtonClick}/>
+                {testList.map(elt => (
+                    <Button 
+                        key={elt[1]} 
+                        onClick={e => this.handleButtonClick(e, elt[1])}
+                        className='recent-song'> {elt[0]} 
+                    </Button>
+                ))}
                 </div>
             </div>
         )

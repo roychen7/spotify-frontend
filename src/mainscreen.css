@@ -14,9 +14,9 @@
     text-align: center;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
-} */
+}
 
 .login-button {
     cursor: pointer;
@@ -39,7 +39,7 @@
     width: 15px;
     margin-left: 0px;
     margin-top: 0px;
-    height: 54px;
+    height: 374px;
     display: inline-block;
     background-color: rgb(44, 104, 130);
     -webkit-transition-duration: 0.4s;
@@ -50,7 +50,7 @@
 
 .expand-button-2 {
     width: 15px;
-    height: 54px;
+    height: 374px;
     display: inline-block;
     background-color: rgb(44, 104, 130);
     text-decoration: none;
