@@ -1,21 +1,22 @@
 import React from 'react';
 import '../componentstyling/PlaylistMixGenerator.css'
 import { Button} from 'react-bootstrap';
+import{ getRecent, getPlaylists } from '../utils/ApiCaller'
 
-const testList = [[0, 1], [2, 3], [4, 5], [6, 7]]
 
 class PlaylistMixGenerator extends React.PureComponent {
     constructor(props) {
         super(props);
-        // TODO: propertly initialize currentlySelected
         this.currentlySelected = new Set();
+        this.data = getPlaylists()
     }
 
     componentDidMount() {
-        const { listItems } = this.props;
-        for (let i = 0; i < testList.length; i++) {
-            this.currentlySelected.add(testList[i]);
+        const data = this.data;
+        for (let i = 0; i < data.length; i++) {
+            this.currentlySelected.add(data[i][1]);
         }
+        console.log(this.currentlySelected);
     }
 
     handleButtonClick = (e, playlistId) => {
@@ -31,13 +32,14 @@ class PlaylistMixGenerator extends React.PureComponent {
     }
 
     render() {
-        const testList = [[0, 1], [2, 3], [4, 5], [6, 7]]
+        const data = this.data; 
+
         return (
             <div className='pmg-top-div'>
                 <h1 className='pmg-title'> Playlist Mixer</h1> 
                 <Button className='generate-button'> Generate </Button>
                 <div className='pmg-top-item-list-div'>
-                    {testList.map(elt => (
+                    {data.map(elt => (
                         <Button 
                             key={elt[1]} 
                             onClick={e => this.handleButtonClick(e, elt[1])}
@@ -74,9 +76,5 @@ class PlaylistMixGenerator extends React.PureComponent {
 //         </div>
 //     );
 // }
-
-function handleButtonClick(elt) {
-    console.log("hello world from button click" + elt)
-}
 
 export default PlaylistMixGenerator;

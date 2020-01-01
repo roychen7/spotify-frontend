@@ -58,3 +58,23 @@ export function callPauseSong() {
         }
     })
 }
+
+export function getRecent() {
+    $.ajax({
+        method: 'GET', 
+        url: "http://localhost:8080/recent",
+        success: function(data, textStatus, xhr) {
+            return data;
+        }
+    })
+}
+
+export function getPlaylists() {
+    $.ajax({
+        method: 'GET', 
+        url: 'http://localhost:8080/playlists', 
+        success: function(data, textStatus, xhr) {
+            return data;
+        }
+    })
+}

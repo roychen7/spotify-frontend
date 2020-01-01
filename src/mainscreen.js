@@ -56,19 +56,12 @@ expand = (e) => {
             width: 500,
             height: 400
         })
-        this.expandButton1.current.style.height='374px';
-        this.expandButton2.current.style.height='374px';
         this.setState({ isStretched: true })
     } else {
-        console.log("setting to small");
-        console.log(this.expandButton1.current);
-        console.log(this.expandButton2.current);
         window_.setBounds({
             width: 100,
             height: 80,
         })
-        this.expandButton1.current.style.height='54px';
-        this.expandButton2.current.style.height='54px';
         this.setState({ isStretched: false })
     }
 }
@@ -115,17 +108,17 @@ componentDidMount() {
 render() {
     return (
         <> 
-            {this.state.loggedIn && (<Button className="login-button" onClick = {this.handleLogin}> Login </Button>)} 
+            {!this.state.loggedIn && (<Button className="login-button" onClick = {this.handleLogin}> Login </Button>)} 
              <div id='player-wrapper'>
-                {!this.state.loggedIn && (<Button ref={this.expandButton1} className='expand-button' onClick={this.expand} >  </Button>)}
+                {this.state.loggedIn && (<Button ref={this.expandButton1} className='expand-button' onClick={this.expand} >  </Button>)}
                 {/* <div className='center-toggle'> */}
-                    {!this.state.loggedIn && (<Button className="toggle-button" onClick = {this.handleToggle}></Button>)}
-                    {!this.state.loggedIn && this.state.isStretched && (<PlaylistMixGenerator/>)}
+                    {this.state.loggedIn && (<Button className="toggle-button" onClick = {this.handleToggle}></Button>)}
+                    {this.state.loggedIn && this.state.isStretched && (<PlaylistMixGenerator/>)}
                 {/* </div> */}
-                    {!this.state.loggedIn && this.state.isStretched && (<RecentSongs />)}
-                {!this.state.loggedIn && (<Button ref={this.expandButton2} className='expand-button-2' onClick={this.expand} >  </Button>)}
+                    {this.state.loggedIn && this.state.isStretched && (<RecentSongs />)}
+                {this.state.loggedIn && (<Button ref={this.expandButton2} className='expand-button-2' onClick={this.expand} >  </Button>)}
             </div>
-            {!this.state.loggedIn && < Player />}
+            {this.state.loggedIn && < Player />}
         </>
         )
     }
