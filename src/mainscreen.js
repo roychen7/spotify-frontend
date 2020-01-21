@@ -113,7 +113,7 @@ render() {
                 {this.state.loggedIn && (<Button ref={this.expandButton1} className='expand-button' onClick={this.expand} >  </Button>)}
                 {/* <div className='center-toggle'> */}
                     {this.state.loggedIn && (<Button className="toggle-button" onClick = {this.handleToggle}></Button>)}
-                    {this.state.loggedIn && this.state.isStretched && (<PlaylistMixGenerator/>)}
+                    {this.state.loggedIn && this.state.isStretched && (<PlaylistMixG enerator/>)}
                 {/* </div> */}
                     {this.state.loggedIn && this.state.isStretched && (<RecentSongs />)}
                 {this.state.loggedIn && (<Button ref={this.expandButton2} className='expand-button-2' onClick={this.expand} >  </Button>)}

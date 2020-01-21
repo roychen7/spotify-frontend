@@ -7,7 +7,7 @@ import getRecent from '../utils/ApiCaller'
 class RecentSongs extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.data = getRecent()
+        this.data = getRecent() 
     }
 
     render() {

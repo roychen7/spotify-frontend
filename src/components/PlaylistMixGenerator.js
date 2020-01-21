@@ -17,7 +17,7 @@ class PlaylistMixGenerator extends React.PureComponent {
             this.currentlySelected.add(data[i][1]);
         }
         console.log(this.currentlySelected);
-    }
+    } 
 
     handleButtonClick = (e, playlistId) => {
         if (this.currentlySelected.has(playlistId)) {

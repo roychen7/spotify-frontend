@@ -59,7 +59,7 @@ export function callPauseSong() {
     })
 }
 
-export function getRecent() {
+export function getRecent() { 
     $.ajax({
         method: 'GET', 
         url: "http://localhost:8080/recent",
